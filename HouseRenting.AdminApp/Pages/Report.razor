@@ -1,0 +1,65 @@
+﻿@page "/report"
+@inherits ReportComponent
+
+@using HouseRenting.Common.Dto.Services
+
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Формирование отчета">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm Data="@ReportDto" TItem="GenerateReportDto">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Дата начала" Component="DateFrom" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDatePicker style="display: block; width: 80%" @bind-Value="@(ReportDto.DateFrom)" DateFormat="dd/MM/yyyy" Name="DateFrom">
+                                </RadzenDatePicker>
+                                <RadzenRequiredValidator Component="DateFrom" Text="Дата начала обязательна" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Дата окончания" Component="DateTo" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDatePicker style="display: block; width: 80%" @bind-Value="@(ReportDto.DateTo)" DateFormat="dd/MM/yyyy" Name="DateTo">
+                                </RadzenDatePicker>
+                                <RadzenRequiredValidator Component="DateTo" Text="Дата встречи обязательна" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Сформировать отчет" Click="@DownloadFileFromStream" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Отмена" Click="@ExitFromPage">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+
+<script>
+    window.downloadFileFromStream = async (fileName, contentStreamReference) => {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const blob = new Blob([arrayBuffer]);
+        const url = URL.createObjectURL(blob);
+        const anchorElement = document.createElement('a');
+        anchorElement.href = url;
+        anchorElement.download = fileName ?? '';
+        anchorElement.click();
+        anchorElement.remove();
+        URL.revokeObjectURL(url);
+    }
+</script>

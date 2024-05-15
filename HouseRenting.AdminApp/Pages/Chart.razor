@@ -1,0 +1,21 @@
+﻿@page "/chart"
+@inherits ChartComponent
+
+<h3>График закрытых сделок</h3>
+
+<div Class="rz-p-0 rz-p-md-12">
+    <RadzenChart>
+        <RadzenColumnSeries Visible="@(MonthOrders.Any())" FillRange="@FillRange" Data="@MonthOrders" CategoryProperty="Month" Title="Реальная суммы" ValueProperty="Sum">
+            <RadzenSeriesDataLabels Visible="true" />
+        </RadzenColumnSeries>
+        <RadzenColumnSeries Visible="@(Predict.Any())"  Data="@Predict" CategoryProperty="Month" Title="Спрогнозированная суммы" ValueProperty="Sum">
+            <RadzenSeriesDataLabels Visible="true" />
+        </RadzenColumnSeries>
+        <RadzenColumnOptions Radius="5" />
+        <RadzenValueAxis>
+            <RadzenGridLines Visible="true" />
+            <RadzenAxisTitle Text="Суммы сделок в рублях" />
+        </RadzenValueAxis>
+        <RadzenLegend Visible="false" />
+    </RadzenChart>
+</div>

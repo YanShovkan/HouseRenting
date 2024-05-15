@@ -1,0 +1,50 @@
+﻿@using HouseRenting.Common.Dto.Advert
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@inject NavigationManager NavigationManager
+@page "/adverts"
+@inherits AdvertsComponent
+
+<PageTitle>Объявления</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Объявления">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Добавить" Click=@Button0Click>
+                </RadzenButton>
+                <RadzenDataGrid @ref="grid0" Sort="@OnSort" ColumnWidth="300px" AllowSorting="true" PageSize="15" AllowPaging="true"
+                                PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" Data="@getAdvertsResult" Count="@getAdvertsCount"
+                                TItem="GetAdvertResponseDto" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Sortable="true" Property="Price" Title="Цена" Frozen="true" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Address" Title="Адрес" Frozen="true" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="IsActualString" Frozen="true" Title="Актуальность" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="RoomsCount" Title="Кол-во комнат" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Area" Title="Площадь" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Floor" Title="Этаж" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="IsActualString" Title="Актуальность" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Comment" Title="Комментарий" Width="160px" />
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Frozen="false" Title="Фото" Filterable="false" Sortable="false" Width="190px" TextAlign="TextAlign.Center">
+                            <Template Context="advert">
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="chevron_left" style="width: 36px; height: 100px" Click="@((args) => PrevImg(advert))" Size="ButtonSize.Small" @onclick:stopPropagation="true" />
+                                <img src="@GetImage(advert)" alt="image" style="max-width: 100px; max-height: 100px" />
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="chevron_right" style="width: 36px; height: 100px" Click="@((args) => NextImg(advert))" Size="ButtonSize.Small" @onclick:stopPropagation="true" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Title="Удаление" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="advert">
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, advert))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

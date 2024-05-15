@@ -1,0 +1,65 @@
+﻿@inherits MainLayoutComponent
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenTooltip />
+<RadzenContextMenu />
+
+<RadzenLayout>
+    <ChildContent>
+        <RadzenHeader>
+            <ChildContent>
+                <div class="row justify-content-start align-items-center">
+                    <div class="col-6 d-flex align-items-center">
+                        <RadzenSidebarToggle Click="@SidebarToggle0Click">
+                        </RadzenSidebarToggle>
+                        <RadzenLabel Text="Панель администратора">
+                        </RadzenLabel>
+                    </div>
+                    <div class="col-6 text-right">
+                    </div>
+                </div>
+            </ChildContent>
+        </RadzenHeader>
+        <RadzenBody @ref="body0">
+            <ChildContent>
+                <RadzenContentContainer Name="main">
+                    @Body
+                </RadzenContentContainer>
+            </ChildContent>
+        </RadzenBody>
+        <RadzenSidebar @ref="sidebar0">
+            <ChildContent>
+                <RadzenPanelMenu style="height: 100%">
+                    <ChildContent>
+                        <RadzenPanelMenuItem Text="Главная" Path="/">
+                        </RadzenPanelMenuItem>
+                        @if (Online.IsOnline)
+                        {
+                            <RadzenPanelMenuItem Text="Объявления" Path="adverts">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="Сделки" Path="orders">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="Заявки" Path="requests">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="Модерация" Path="moderateadverts">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="Отчет" Path="report">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="KPI" Path="chart">
+                            </RadzenPanelMenuItem>
+                            <RadzenPanelMenuItem Text="Статистика" Path="statistic">
+                            </RadzenPanelMenuItem>
+                        }
+                        else
+                        {
+                            <RadzenPanelMenuItem Text="Войти" Path="enter">
+                            </RadzenPanelMenuItem>
+                        }
+
+                    </ChildContent>
+                </RadzenPanelMenu>
+            </ChildContent>
+        </RadzenSidebar>
+    </ChildContent>
+</RadzenLayout>

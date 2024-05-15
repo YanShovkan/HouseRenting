@@ -1,0 +1,55 @@
+﻿@using HouseRenting.Common.Dto.Order
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@inject NavigationManager NavigationManager
+@page "/orders"
+@inherits OrdersComponent
+
+<PageTitle>Сделки</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Сделки">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Добавить" Click=@Button0Click>
+                </RadzenButton>
+                <RadzenDataGrid @ref="grid0" Sort="@OnSort" ColumnWidth="300px" AllowSorting="true" PageSize="15" AllowPaging="true"
+                                PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" Data="@getOrdersResult" Count="@getOrdersCount"
+                                TItem="GetOrderResponseDto" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="StartDate" FormatString="{0:d}" Title="Дата начала">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="EndDate" FormatString="{0:d}" Title="Дата окончания">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="AgencySum" Title="Прибыль агенства">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="TotalSum" Title="Общая стоимость">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="CommitedDate" FormatString="{0:d}" Title="Дата подписания">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="IsCommitedString" Title="Статус">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Property="Advert.ClientFIO" Title="ФИО собственника">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="order">
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, order))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetOrderResponseDto" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="order">
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="check_circle" Size="ButtonSize.Small" Click="@((args) =>Commit(args, order))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

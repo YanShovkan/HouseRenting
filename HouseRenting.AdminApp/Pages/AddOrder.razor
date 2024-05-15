@@ -1,0 +1,85 @@
+﻿@page "/addorder"
+@layout MainLayout
+@inherits AddOrderComponent
+
+@using HouseRenting.Common.Dto.Order
+@using Radzen
+@using Radzen.Blazor
+
+<PageTitle>Добавление сделки</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm Data="@order" Visible="@(order != null)" TItem="CreateOrderRequestDto">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Объявление" Component="AdvertId" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDropDown Data="@getAdvertsResult" TextProperty="Address" ValueProperty="Id" Placeholder="Выберите объявление" style="display: block; width: 80%" @bind-Value="@(order.AdvertId)" Name="AdvertId">
+                                </RadzenDropDown>
+                                <RadzenRequiredValidator Component="AdvertId" Text="Выберите объявление" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Начало аренды" Component="StartDate" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDatePicker style="display: block; width: 80%" @bind-Value="@(order.StartDate)" DateFormat="dd/MM/yyyy" Name="StartDate">
+                                </RadzenDatePicker>
+                                <RadzenRequiredValidator Component="StartDate" Text="Выберите дату начала" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Количество месяцев" Component="MounthCount" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(order.MounthCount)" Name="MounthCount">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Процент агенства" Component="AgencyPercent" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(order.AgencyPercent)" Name="AgencyPercent">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Дата встречи" Component="MeetTime" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenDatePicker style="display: block; width: 80%" @bind-Value="@(order.MeetTime)" ShowTime="true" DateFormat="dd/MM/yyyy HH:mm" Name="MeetTime">
+                                </RadzenDatePicker>
+                                <RadzenRequiredValidator Component="MeetTime" Text="Дата встречи обязательна" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Сохранить" Click="@Button1Click" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Отмена" Click="@Button2Click">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

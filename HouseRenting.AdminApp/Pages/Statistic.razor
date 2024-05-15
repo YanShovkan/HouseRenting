@@ -1,0 +1,16 @@
+﻿@page "/statistic"
+@inherits StatisticComponent
+
+<h3>Статистика объявлений в работе</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 offset-lg-3 my-5">
+            <RadzenChart>
+                <RadzenPieSeries Data="@Statistics" Title="Кол-во" CategoryProperty="Name" ValueProperty="Count">
+                    <RadzenSeriesDataLabels Visible="false" />
+                </RadzenPieSeries>
+            </RadzenChart>
+        </div>
+    </div>
+</div>

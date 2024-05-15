@@ -1,0 +1,95 @@
+﻿@using HouseRenting.Common.Dto.Advert
+@using Radzen
+@using Radzen.Blazor
+@inherits EditAdvertComponent
+
+<PageTitle>Изменение объявления</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm TItem="UpdateAdvertRequestDto" Data="@advert" Visible="@(advert != null)" Submit="@Form0Submit">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Площадь" Component="Area" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Disabled="@CanEdit" style="display: block; width: 100%" @bind-Value="@(advert!.Area)" Name="Area">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Area" Text="Укажите площадь" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Стоимость" Component="Price" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Disabled="@CanEdit" style="display: block; width: 100%" @bind-Value="@(advert.Price)" Name="Price">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Price" Text="Укажите цену" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Этаж" Component="Floor" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Disabled="@CanEdit" style="display: block; width: 100%" @bind-Value="@(advert.Floor)" Name="Floor">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Floor" Text="Укажите этаж" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Количество комнат" Component="RoomsCount" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Disabled="@CanEdit" style="width: 100%" @bind-Value="@(advert.RoomsCount)" Name="RoomsCount">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Адрес" Component="Address" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox Disabled="@CanEdit" style="display: block; width: 100%" @bind-Value="@(advert.Address)" Name="Address">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="Address" Text="Укажите адрес" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Комментарий" Component="Comment" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox Disabled="@CanEdit" style="display: block; width: 100%" @bind-Value="@(advert.Comment)" Name="Comment">
+                                </RadzenTextBox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Сохранить" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Отмена" Click="@Button2Click">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
+

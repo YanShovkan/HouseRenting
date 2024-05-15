@@ -1,0 +1,53 @@
+﻿@using HouseRenting.Common.Dto.Request
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@inject NavigationManager NavigationManager
+@page "/requests"
+@inherits RequestsComponent
+
+<PageTitle>Заявки</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Заявки">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Добавить" Click=@Button0Click>
+                </RadzenButton>
+                <RadzenDataGrid @ref="grid0" Sort="@OnSort" ColumnWidth="300px" AllowSorting="true" PageSize="15" AllowPaging="true"
+                                PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" Data="@getRequestsResult" Count="@getRequestsCount"
+                                TItem="GetRequestResponseDto" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="PriceGreater" Title="Цена больше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="PriceLess" Title="Цена меньше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="AreaGreater" Title="Площадь больше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="AreaLess" Title="Площадь меньше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="RoomsCountGreater" Title="Комнат больше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="RoomsCountLess" Title="Комнат меньше">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="MonthCount" Title="Кол-во месяцев">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="Comment" Title="Статус">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Property="RequestStatusString" Title="Статус">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="GetRequestResponseDto" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="order">
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, order))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

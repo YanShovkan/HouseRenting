@@ -1,0 +1,38 @@
+﻿@using HouseRenting.Common.Dto.Admin
+@using Radzen
+@using Radzen.Blazor
+
+@page "/register"
+@inherits RegisterComponent
+@layout MainLayout
+
+<div class="text-center">
+    <h2 class="display-4">Регистрация</h2>
+</div>
+
+<RadzenTemplateForm TItem="CreateAdminRequestDto" Data=@model>
+    <div class="col-md-6 col-lg-4 p-3">
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" style="width=100%">Логин:</RadzenText>
+        <RadzenTextBox Name="Login" Placeholder="Введите логин..." @bind-Value=@model.Login class="w-100" aria-label="TextBox with placeholder" style="width=100%" />
+        <RadzenRequiredValidator Component="Login" Text="Выберите объявление" style="position: absolute">
+        </RadzenRequiredValidator>
+    </div>
+    <div class="col-md-6 col-lg-4 p-3">
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" style="width=100%">Пароль:</RadzenText>
+        <RadzenPassword Name="Passwd" @bind-Value=@model.Password aria-label="Введите пароль..." style="width=100%" />
+        <RadzenRequiredValidator Component="Passwd" Text="Выберите объявление" style="position: absolute">
+        </RadzenRequiredValidator>
+    </div>
+    <div class="col-md-6 col-lg-4 p-3">
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" style="width=100%">Имя:</RadzenText>
+        <RadzenTextBox Name="Fio" Placeholder="Введите имя..." @bind-Value=@model.Name class="w-100" aria-label="TextBox with placeholder" style="width=100%" />
+        <RadzenRequiredValidator Component="Fio" Text="Выберите объявление" style="position: absolute">
+        </RadzenRequiredValidator>
+    </div>
+    <div class="col-md-6 col-lg-4 p-3">
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3" style="width=100%">Почта:</RadzenText>
+        <RadzenTextBox Name="Email" Placeholder="Введите почту..." @bind-Value=@model.Email class="w-100" style="width=100%" />
+        <RadzenEmailValidator Component="Email" Text="Введите почту" Style="position:absolute" />
+    </div>
+    <RadzenButton Click=RegisterAsync Text="Зарегистрироваться" ButtonStyle="ButtonStyle.Primary" />
+</RadzenTemplateForm>

@@ -1,0 +1,9 @@
+﻿@inject NavigationManager NavigationManager
+
+<div class="rz-p-sm-12" style="margin-top: 0px;">
+    <RadzenMenu>
+        <RadzenMenuItem Text="Главная" Click=@(args => NavigationManager.NavigateTo("/")) Icon="account_circle" />
+        <RadzenMenuItem Text="Вход" Click=@(args => NavigationManager.NavigateTo("/enter")) Icon="account_box" />
+        <RadzenMenuItem Text="Объявления" Click=@(args => NavigationManager.NavigateTo("/adverts")) Icon="account_balance_wallet" />
+    </RadzenMenu>
+</div>

@@ -1,0 +1,109 @@
+﻿@page "/addrequest"
+@layout MainLayout
+@inherits AddRequestComponent
+
+@using HouseRenting.Common.Dto.Request
+@using Radzen
+@using Radzen.Blazor
+
+<PageTitle>Добавление сделки</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm Data="@request" Visible="@(request != null)" TItem="CreateRequestRequestDto">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Количество месяцев" Component="MonthCount" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.MonthCount)" Name="MonthCount">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Минимальная цена" Component="PriceGreater" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.PriceGreater)" Name="PriceGreater">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Максимальная цена" Component="PriceLess" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.PriceLess)" Name="PriceLess">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Минимальная площадь" Component="AreaGreater" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.AreaGreater)" Name="AreaGreater">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Максимальная площадь" Component="AreaLess" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.AreaLess)" Name="AreaLess">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Минимальное количество комнат" Component="RoomsCountGreater" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.RoomsCountGreater)" Name="RoomsCountGreater">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Максимальное количество комнат" Component="RoomsCountLess" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 80%" @bind-Value="@(request.RoomsCountLess)" Name="RoomsCountLess">
+                                </RadzenNumeric>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Комментарий" Component="Comment" style="width: 80%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="width: 80%" @bind-Value="@(request.Comment)" Name="Comment">
+                                </RadzenTextBox>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Сохранить" Click="@Button1Click" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Отмена" Click="@Button2Click">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

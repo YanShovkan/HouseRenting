@@ -1,0 +1,133 @@
+﻿@using HouseRenting.Common.Dto.Advert
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@page "/addadvert"
+@inherits AddAdvertComponent
+
+<PageTitle>Создание объявления</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenTemplateForm Data="@_advert" Visible="@(_advert != null)" TItem="CreateAdvertRequestDto">
+                    <ChildContent>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Площадь" Component="Area" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="1" style="display: block; width: 100%" @bind-Value="@(_advert.Area)" Name="Area">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Area" Text="Укажите площадь" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Цена" Component="Price" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="1" style="display: block; width: 100%" @bind-Value="@(_advert.Price)" Name="Price">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Price" Text="Укажите цену" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Этаж" Component="Floor" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="1" style="display: block; width: 100%" @bind-Value="@(_advert.Floor)" Name="Floor">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="Floor" Text="Укажите этаж" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Количество комнат" Component="RoomsCount" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenNumeric Min="0" style="width: 100%" @bind-Value="@(_advert.RoomsCount)" Name="RoomsCount">
+                                </RadzenNumeric>
+                                <RadzenRequiredValidator Component="RoomsCount" Text="Укажите количество комнат" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Адрес" Component="Address" style="width: 75%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(_advert.Address)" Name="Address">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="Address" Text="Укажите адрес" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="ФИО собственника" Component="ClientFIO" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(_advert.ClientFIO)" Name="ClientFIO">
+                                </RadzenTextBox>
+                                <RadzenRequiredValidator Component="ClientFIO" Text="Укажите ФИО собственника" style="position: absolute">
+                                </RadzenRequiredValidator>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Почта собственника" Component="ClientEmail" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(_advert.ClientEmail)" Name="ClientEmail">
+                                </RadzenTextBox>
+                                <RadzenEmailValidator Component="ClientEmail" Text="Введите почту" Style="position:absolute" />
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Комментарий" Component="Comment" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(_advert.Comment)" Name="Comment">
+                                </RadzenTextBox>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem" class="row">
+                            <div class="col-md-3">
+                                <RadzenLabel Text="Загрузка фото" style="width: 100%">
+                                </RadzenLabel>
+                            </div>
+                            <div class="col-md-9">
+                                <RadzenUpload ChooseText="Выбрать файлы" Accept="image/*" Multiple="true" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
+                                              Change=@OnClientChange style="width: 100%" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col offset-sm-3">
+                                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Сохранить" Click="@Button1Click" ButtonStyle="ButtonStyle.Primary">
+                                </RadzenButton>
+                                <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Отмена" Click="@Button2Click">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </ChildContent>
+                </RadzenTemplateForm>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

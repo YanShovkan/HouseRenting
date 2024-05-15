@@ -1,0 +1,61 @@
+﻿@using HouseRenting.Common.Dto.Advert
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.Components.Web;
+@page "/moderateadverts"
+@inherits ModerateAdvertComponent
+
+<PageTitle>Модерация</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Объявления">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenDataGrid Sort="OnSort" @ref="grid0" AllowPaging="true" PageSize="15" AllowSorting="true" Data="@getAdvertsResult" Count="@getAdvertsCount" TItem="GetAdvertResponseDto" LoadData="@Grid0LoadData">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Area" Title="Площадь">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Floor" Title="Этаж">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="RoomsCount" Title="Кол-во комнат">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Price" Title="Цена">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="Address" Title="Адрес">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="ClientFIO" Title="ФИО">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="ClientEmail" Title="Почта">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="IsActualString" Title="Актуальность">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Property="ReviewStatusString" Title="Статус">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Frozen="false" Title="Фото" Filterable="false" Sortable="false" Width="190px" TextAlign="TextAlign.Center">
+                            <Template Context="advert">
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="chevron_left" style="width: 36px; height: 100px" Click="@((args) => PrevImg(advert))" Size="ButtonSize.Small" @onclick:stopPropagation="true" />
+                                <img src="@GetImage(advert)" alt="image" style="max-width: 100px; max-height: 100px" />
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="chevron_right" style="width: 36px; height: 100px" Click="@((args) => NextImg(advert))" Size="ButtonSize.Small" @onclick:stopPropagation="true" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="advert">
+                                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>Denie(args, advert))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="HouseRenting.Common.Dto.Advert.GetAdvertResponseDto" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                            <Template Context="advert">
+                                <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="check_circle" Size="ButtonSize.Small" Click="@((args) =>Review(args, advert))" @onclick:stopPropagation="true">
+                                </RadzenButton>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>

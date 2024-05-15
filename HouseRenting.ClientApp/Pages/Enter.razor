@@ -1,0 +1,42 @@
+﻿@using HouseRenting.ClientApp.Pages
+@using HouseRenting.Common.Dto.Admin
+@using HouseRenting.Common.RefitContracts
+@using Radzen
+@using Radzen.Blazor
+@page "/enter"
+@layout MainLayout
+@inherits EnterComponent
+
+<PageTitle>Вход</PageTitle>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H1" Text="Вход в приложение">
+        </RadzenHeading>
+        <div class="row">
+            <div class="col-md-12" style="vertical-align: baseline">
+                <RadzenLabel Text="Логин:" style="width=100%" />
+            </div>
+            <div class="col-md-12" style="vertical-align: baseline">
+                <RadzenTextBox Placeholder="Введите логин..." style="vertical-align: middle; width=100%" Name="Textbox0" @bind-Value="@(Login)" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="vertical-align: baseline">
+                <RadzenLabel Text="Пароль:" style="width=100%" />
+            </div>
+            <div class="col-md-12" style="vertical-align: baseline">
+                <RadzenPassword Placeholder="Введите пароль..." style="vertical-align: middle;width=100%" Name="Password0" @bind-Value="@(Password)" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <RadzenButton Click=@(async args => await EnterInSystem()) ButtonStyle="ButtonStyle.Primary" style="margin-top: 12px; width: 236px" Text="Войти">
+                </RadzenButton>
+            </div>
+            <div class="col-md-12">
+                <RadzenButton Click=@(args => Register()) ButtonStyle="ButtonStyle.Primary" style="margin-top: 12px; width: 236px" Text="Зарегистрироваться">
+                </RadzenButton>
+            </div>
+        </div>
+    </ChildContent>
+</RadzenContent>
