@@ -26,10 +26,6 @@ public class AddAdvertComponent : ComponentBase
         InvokeAsync(StateHasChanged);
     }
 
-    public void OnPropertyChanged(PropertyChangedEventArgs args)
-    {
-    }
-
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = null!;
 

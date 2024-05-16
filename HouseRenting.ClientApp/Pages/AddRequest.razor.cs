@@ -20,10 +20,6 @@ public class AddRequestComponent : ComponentBase
         InvokeAsync(StateHasChanged);
     }
 
-    public void OnPropertyChanged(PropertyChangedEventArgs args)
-    {
-    }
-
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
 
@@ -58,7 +54,6 @@ public class AddRequestComponent : ComponentBase
             {
                 var args = new PropertyChangedEventArgs() { Name = "request", NewValue = value, OldValue = _request };
                 _request = value;
-                OnPropertyChanged(args);
                 Reload();
             }
         }

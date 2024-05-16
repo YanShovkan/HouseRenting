@@ -19,10 +19,6 @@ public class AddOrderComponent : ComponentBase
         InvokeAsync(StateHasChanged);
     }
 
-    public void OnPropertyChanged(PropertyChangedEventArgs args)
-    {
-    }
-
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
 
@@ -60,7 +56,6 @@ public class AddOrderComponent : ComponentBase
             {
                 var args = new PropertyChangedEventArgs() { Name = "getAdvertsResult", NewValue = value, OldValue = _getAdvertsResult };
                 _getAdvertsResult = value;
-                OnPropertyChanged(args);
                 Reload();
             }
         }
@@ -79,7 +74,6 @@ public class AddOrderComponent : ComponentBase
             {
                 var args = new PropertyChangedEventArgs() { Name = "order", NewValue = value, OldValue = _order };
                 _order = value;
-                OnPropertyChanged(args);
                 Reload();
             }
         }

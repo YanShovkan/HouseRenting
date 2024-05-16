@@ -18,10 +18,6 @@ public class ReportComponent : ComponentBase
     {
         InvokeAsync(StateHasChanged);
     }
-
-    public void OnPropertyChanged(PropertyChangedEventArgs args)
-    {
-    }
     
     [Inject]
     protected IServicesClient ServicesClient { get; set; }

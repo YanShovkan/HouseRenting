@@ -21,10 +21,6 @@ public class EditAdvertComponent : ComponentBase
         InvokeAsync(StateHasChanged);
     }
 
-    public void OnPropertyChanged(PropertyChangedEventArgs args)
-    {
-    }
-
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
 
@@ -65,7 +61,6 @@ public class EditAdvertComponent : ComponentBase
             {
                 var args = new PropertyChangedEventArgs() { Name = "advert", NewValue = value, OldValue = _advert };
                 _advert = value;
-                OnPropertyChanged(args);
                 Reload();
             }
         }
