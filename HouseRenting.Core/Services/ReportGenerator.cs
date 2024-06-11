@@ -10,11 +10,90 @@ using System.Drawing;
 namespace HouseRenting.Core.Services;
 public class ReportGenerator : IReportGenerator
 {
-    private readonly IQueryRepository<Order> _orderRepository;
+    private readonly IQueryRepository<Dal.Entities.Order> _orderRepository;
+    private readonly IQueryRepository<Advert> _advertRepository;
 
-    public ReportGenerator(IQueryRepository<Order> orderRepository)
+    public ReportGenerator(IQueryRepository<Dal.Entities.Order> orderRepository, IQueryRepository<Advert> advertRepository)
     {
         _orderRepository = orderRepository;
+        _advertRepository = advertRepository;
+    }
+
+    public async Task<byte[]> CreateAvitoFileAsync(CancellationToken cancellationToken = default)
+    {
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        var reportModels = await _advertRepository.GetAllAsync(cancellationToken);
+
+        using (var package = new ExcelPackage())
+        {
+            var sheet = package.Workbook.Worksheets.Add("kvartiry_sdam");
+
+            var idCell = sheet.Cells["A1"];
+            SetCellProperties(idCell, "Id");
+
+            var descriptionCell = sheet.Cells["B1"];
+            SetCellProperties(descriptionCell, "Description");
+
+            var addressCell = sheet.Cells["C1"];
+            SetCellProperties(addressCell, "Address");
+
+            var categoryCell = sheet.Cells["D1"];
+            SetCellProperties(categoryCell, "Category");
+
+            var priceCell = sheet.Cells["E1"];
+            SetCellProperties(priceCell, "Price");
+
+            var operationTypeCell = sheet.Cells["F1"];
+            SetCellProperties(operationTypeCell, "OperationType");
+
+            var floorCell = sheet.Cells["G1"];
+            SetCellProperties(floorCell, "Floor");
+
+            var roomsCell = sheet.Cells["H1"];
+            SetCellProperties(roomsCell, "Rooms");
+
+            var squareCell = sheet.Cells["I1"];
+            SetCellProperties(squareCell, "Square");
+
+
+            int row = 2;
+
+            foreach (var advert in reportModels)
+            {
+                var idCellValue = sheet.Cells[row, 1];
+                SetCellProperties(idCellValue, advert.Id.ToString());
+
+                var descriptionCellValue = sheet.Cells[row, 2];
+                SetCellProperties(descriptionCellValue, advert.Comment);
+
+                var addressCellValue = sheet.Cells[row, 3];
+                SetCellProperties(addressCellValue, advert.Address);
+
+                var categoryCellValue = sheet.Cells[row, 4];
+                SetCellProperties(categoryCellValue, "Квартиры");
+
+                var priceCellValue = sheet.Cells[row, 5];
+                SetCellProperties(priceCellValue, advert.Price.ToString());
+
+                var operationTypeCellValue = sheet.Cells[row, 6];
+                SetCellProperties(operationTypeCellValue, "Сдам");
+
+                var floorCellValue = sheet.Cells[row, 7];
+                SetCellProperties(floorCellValue, advert.Floor.ToString());
+
+                var roomsCellValue = sheet.Cells[row, 8];
+                SetCellProperties(roomsCellValue, advert.RoomsCount.ToString());
+
+                var squareCellValue = sheet.Cells[row, 9];
+                SetCellProperties(squareCellValue, advert.Area.ToString());
+
+                row++;
+
+            }
+            sheet.Protection.IsProtected = true;
+
+            return await package.GetAsByteArrayAsync(cancellationToken);
+        }
     }
 
     public async Task<byte[]> CreateReportAsync(GenerateReportDto model, CancellationToken cancellationToken = default)
